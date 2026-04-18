@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BREW & BOND | نظام الولاء</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a class="navbar-brand" id="brand-link">
+            <span class="logo-icon">☕</span>
+            <span class="logo-text">BREW & BOND</span>
+        </a>
+        <div class="nav-tabs" id="nav-tabs" style="display:none;">
+            <button class="nav-tab" data-page="menu">
+                <span class="tab-icon">🍵</span>
+                <span class="tab-label">القائمة</span>
+            </button>
+            <button class="nav-tab" data-page="card">
+                <span class="tab-icon">💳</span>
+                <span class="tab-label">بطاقتي</span>
+            </button>
+            <button class="nav-tab" data-page="orders">
+                <span class="tab-icon">📋</span>
+                <span class="tab-label">طلباتي</span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- ═══════════════════════════════════════════
+         HOME PAGE
+         ═══════════════════════════════════════════ -->
+    <div class="page-section active" id="page-home">
+        <div class="hero">
+            <div class="hero-glow"></div>
+            <div class="hero-icon">☕</div>
+            <h1 class="hero-title">BREW & BOND</h1>
+            <p class="hero-subtitle">SPECIALTY COFFEE</p>
+            <p class="hero-tagline">اشترِ ٧ مشروبات واحصل على الثامن مجاناً</p>
+
+            <!-- Registration Card -->
+            <div class="reg-card">
+                <h2>سجّل الآن</h2>
+                <div class="reg-form">
+                    <input class="input-field" id="input-name" type="text" placeholder="الاسم الكامل" autocomplete="name">
+                    <input class="input-field" id="input-phone" type="tel" placeholder="رقم الهاتف (اختياري)" autocomplete="tel" dir="ltr" style="text-align:right;">
+                    <button class="btn-primary" id="btn-register">ابدأ جمع النقاط ☕</button>
+                </div>
+
+                <!-- Admin Toggle -->
+                <button class="btn-ghost" id="btn-admin-toggle">🔑 لوحة الإدارة</button>
+
+                <!-- Admin Panel -->
+                <div class="admin-panel" id="admin-panel">
+                    <div class="label">البحث عن عميل برقم العضوية</div>
+                    <div class="admin-row">
+                        <input id="input-lookup" type="text" placeholder="CF-XXXXXX" dir="ltr">
+                        <button class="btn-admin" id="btn-admin-search">بحث</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🎁</div>
+                    <div class="title">مشروب مجاني</div>
+                    <div class="desc">كل ٧ مشروبات = ١ مجاناً</div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📱</div>
+                    <div class="title">بطاقة رقمية</div>
+                    <div class="desc">أضفها لمحفظتك الرقمية</div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔔</div>
+                    <div class="title">إشعارات فورية</div>
+                    <div class="desc">تابع نقاطك أول بأول</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         MENU PAGE
+         ═══════════════════════════════════════════ -->
+    <div class="page-section" id="page-menu">
+        <!-- Welcome Bar -->
+        <div class="welcome-bar">
+            <div>
+                <div class="name" id="welcome-name">أهلاً 👋</div>
+                <div class="stamps-info" id="welcome-stamps">0/7 نقاط</div>
+            </div>
+            <div class="customer-badge" id="welcome-id">CF-XXXXXX</div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="hot">☕ ساخن</button>
+            <button class="filter-btn" data-filter="cold">🧊 بارد</button>
+            <button class="filter-btn" data-filter="special">⭐ مميز</button>
+        </div>
+
+        <!-- Drinks Grid -->
+        <div class="drinks-grid" id="drinks-grid"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         CARD PAGE
+         ═══════════════════════════════════════════ -->
+    <div class="page-section card-page" id="page-card">
+        <h2>بطاقة الولاء</h2>
+        <p class="card-subtitle" id="card-subtitle">ابدأ بجمع النقاط الآن!</p>
+
+        <!-- Stamp Grid -->
+        <div class="stamp-grid" id="stamp-grid">
+            <!-- JS fills stamps -->
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-card">
+            <div class="progress-header">
+                <span class="label">التقدم</span>
+                <span class="value" id="progress-value">0/7</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- Wallet Card -->
+        <div class="wallet-card">
+            <div class="wallet-header">
+                <div>
+                    <div class="brand-label">بطاقة الولاء</div>
+                    <div class="brand-name">BREW & BOND</div>
+                </div>
+                <div class="brand-icon">☕</div>
+            </div>
+
+            <div class="wallet-info">
+                <div class="info-label">MEMBER</div>
+                <div class="info-value" id="wallet-name">عميل جديد</div>
+                <div class="wallet-meta">
+                    <div>
+                        <div class="meta-label">ID</div>
+                        <div class="meta-value mono" id="wallet-id">CF-XXXXXX</div>
+                    </div>
+                    <div>
+                        <div class="meta-label">STAMPS</div>
+                        <div class="meta-value" id="wallet-stamps">0 / 7</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Progress -->
+            <div style="padding:0 24px 16px">
+                <div class="progress-track">
+                    <div class="progress-fill" id="wallet-progress-fill" style="width:0%"></div>
+                </div>
+            </div>
+
+            <!-- QR Code -->
+            <div class="wallet-qr">
+                <div class="qr-frame">
+                    <img id="qr-image" src="" alt="QR Code" width="160" height="160">
+                </div>
+            </div>
+
+            <!-- Wallet Buttons -->
+            <div class="wallet-buttons">
+                <button class="btn-wallet apple" id="btn-apple-pay">
+                    <span>🍎</span> Apple Pay
+                </button>
+                <button class="btn-wallet samsung" id="btn-samsung-pay">
+                    <span>📱</span> Samsung Pay
+                </button>
+            </div>
+        </div>
+
+        <!-- Card Actions -->
+        <div class="card-actions">
+            <button class="btn-secondary" id="btn-order-now" style="flex:1">اطلب الآن</button>
+            <button class="btn-secondary" id="btn-view-orders" style="flex:1;background:rgba(200,149,108,0.1);border-color:transparent;color:var(--cream)">سجل الطلبات</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         ORDERS PAGE
+         ═══════════════════════════════════════════ -->
+    <div class="page-section orders-page" id="page-orders">
+        <h2>سجل الطلبات</h2>
+        <div id="orders-list">
+            <div class="orders-empty">
+                <div class="icon">📋</div>
+                لا توجد طلبات بعد
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Cart Bar (Fixed) -->
+<div class="cart-bar" id="cart-bar">
+    <div>
+        <div class="checkout-text">تأكيد الطلب</div>
+        <div class="cart-summary" id="cart-count">0 عنصر</div>
+    </div>
+    <div class="cart-emojis" id="cart-emojis"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
